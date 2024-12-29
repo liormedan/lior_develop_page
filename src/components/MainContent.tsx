@@ -86,7 +86,7 @@ const MainContent = () => {
       {/* Projects Section */}
       <section
         id="projects"
-        className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        className="pt-24 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-20"
       >
         <h2 className="text-3xl font-bold text-center mb-12 text-foreground">
           פרויקטים נבחרים
@@ -134,7 +134,7 @@ const MainContent = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16 bg-muted/50">
+      <section id="faq" className="pt-24 pb-16 bg-muted/50 scroll-mt-20">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center mb-8 text-foreground">
             שאלות נפוצות
@@ -182,23 +182,20 @@ const MainContent = () => {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="py-16 bg-muted/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-8 text-foreground">
-            אודות
-          </h2>
-          <div className="max-w-3xl mx-auto text-center">
-            <AnimatedText text="Byte מתמחה בבניית אפליקציות web מודרניות ונוחות למשתמש, תוך שימוש בטכנולוגיות המתקדמות ביותר בתעשייה." />
+          <div className="mt-8 text-center">
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => navigate("/docs/faq")}
+            >
+              לכל השאלות הנפוצות
+            </Button>
           </div>
         </div>
       </section>
 
       {/* Contact Form Section */}
-      <section id="contact" className="py-16 bg-background">
+      <section id="contact" className="pt-24 pb-16 bg-background scroll-mt-20">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center mb-8 text-foreground">
             צור קשר
@@ -228,7 +225,7 @@ const MainContent = () => {
       </section>
 
       {/* Quote Request Section */}
-      <section id="quote" className="py-16 bg-muted/50">
+      <section id="quote" className="pt-24 pb-16 bg-muted/50 scroll-mt-20">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center mb-8 text-foreground">
             בקש הצעת מחיר

@@ -6,13 +6,14 @@ import {
   Linkedin,
   Mail,
   Briefcase,
-  User,
-  MessageSquare,
+  MessageCircle,
   ChevronRight,
   ArrowLeft,
   ArrowRight,
   Home,
-  FileText,
+  ScrollText,
+  Receipt,
+  HelpCircle,
 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { useEffect } from "react";
@@ -34,7 +35,7 @@ const Layout = () => {
     console.log("[Layout] Component mounted");
 
     const handleScroll = () => {
-      const sections = ["projects", "about", "contact", "quote"];
+      const sections = ["projects", "contact", "quote", "faq"];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -78,27 +79,27 @@ const Layout = () => {
       variant: "ghost",
     },
     {
-      id: "about",
-      label: "אודות",
-      icon: <User className="h-4 w-4" />,
+      id: "contact",
+      label: "צור קשר",
+      icon: <MessageCircle className="h-4 w-4" />,
       variant: "ghost",
     },
     {
-      id: "contact",
-      label: "צור קשר",
-      icon: <MessageSquare className="h-4 w-4" />,
+      id: "faq",
+      label: "שאלות נפוצות",
+      icon: <HelpCircle className="h-4 w-4" />,
       variant: "ghost",
     },
     {
       id: "quote",
       label: "הצעת מחיר",
-      icon: <FileText className="h-4 w-4" />,
+      icon: <Receipt className="h-4 w-4" />,
       variant: "default",
     },
     {
       id: "docs",
       label: "מסמכים",
-      icon: <FileText className="h-4 w-4" />,
+      icon: <ScrollText className="h-4 w-4" />,
       variant: "ghost",
       onClick: () => navigate("/docs/faq"),
     },
