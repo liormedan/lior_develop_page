@@ -66,31 +66,35 @@ const MainContent = () => {
   }, []);
 
   return (
-    <div className="w-full bg-white" dir="rtl">
+    <div className="w-full bg-background" dir="rtl">
       {/* Projects Section */}
       <section
         id="projects"
         className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
       >
-        <h2 className="text-3xl font-bold text-center mb-12">
+        <h2 className="text-3xl font-bold text-center mb-12 text-foreground">
           פרויקטים נבחרים
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => (
-            <Card key={project.id} className="overflow-hidden">
+            <Card key={project.id} className="overflow-hidden bg-card">
               <img
                 src={project.imageUrl}
                 alt={project.title}
                 className="w-full h-48 object-cover"
               />
               <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                <p className="text-gray-600 mb-4">{project.description}</p>
+                <h3 className="text-xl font-semibold mb-2 text-foreground">
+                  {project.title}
+                </h3>
+                <p className="text-muted-foreground mb-4">
+                  {project.description}
+                </p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2 py-1 bg-gray-100 rounded-full text-sm"
+                      className="px-2 py-1 bg-accent rounded-full text-sm text-accent-foreground"
                     >
                       {tag}
                     </span>
@@ -109,11 +113,13 @@ const MainContent = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-16 bg-gray-50">
+      <section id="about" className="py-16 bg-muted">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-8">אודות</h2>
+          <h2 className="text-3xl font-bold text-center mb-8 text-foreground">
+            אודות
+          </h2>
           <div className="max-w-3xl mx-auto text-center">
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-muted-foreground">
               אני מפתח Full Stack עם ניסיון של מעל 5 שנים בבניית אפליקציות ווב
               מודרניות. מתמחה ב-React, Node.js וטכנולוגיות ענן, עם התמקדות
               ביצירת פתרונות מדרגיים וידידותיים למשתמש עבור עסקים בכל הגדלים.
@@ -123,9 +129,11 @@ const MainContent = () => {
       </section>
 
       {/* Contact Form Section */}
-      <section id="contact" className="py-16">
+      <section id="contact" className="py-16 bg-background">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-8">צור קשר</h2>
+          <h2 className="text-3xl font-bold text-center mb-8 text-foreground">
+            צור קשר
+          </h2>
           <form className="space-y-6">
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div>
@@ -144,9 +152,11 @@ const MainContent = () => {
       </section>
 
       {/* Quote Request Section */}
-      <section id="quote" className="py-16 bg-gray-50">
+      <section id="quote" className="py-16 bg-muted">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-8">בקש הצעת מחיר</h2>
+          <h2 className="text-3xl font-bold text-center mb-8 text-foreground">
+            בקש הצעת מחיר
+          </h2>
           <form className="space-y-6">
             <div className="grid grid-cols-1 gap-6">
               <Input placeholder="שם הפרויקט" />

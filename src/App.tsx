@@ -8,24 +8,33 @@ import EventWebsites from "./components/projects/EventWebsites";
 import Portfolio from "./components/projects/Portfolio";
 import ScrollToTop from "./components/ScrollToTop";
 import { ThemeProvider } from "./components/ui/theme-provider";
+import { TooltipProvider } from "./components/ui/tooltip";
 
 function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="app-theme">
-      <ScrollToTop />
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/projects/budget-manager" element={<BudgetManager />} />
-          <Route path="/projects/mood-tracker" element={<MoodTracker />} />
-          <Route
-            path="/projects/family-websites"
-            element={<FamilyWebsites />}
-          />
-          <Route path="/projects/event-websites" element={<EventWebsites />} />
-          <Route path="/projects/portfolio" element={<Portfolio />} />
-        </Route>
-      </Routes>
+      <TooltipProvider>
+        <ScrollToTop />
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/projects/budget-manager"
+              element={<BudgetManager />}
+            />
+            <Route path="/projects/mood-tracker" element={<MoodTracker />} />
+            <Route
+              path="/projects/family-websites"
+              element={<FamilyWebsites />}
+            />
+            <Route
+              path="/projects/event-websites"
+              element={<EventWebsites />}
+            />
+            <Route path="/projects/portfolio" element={<Portfolio />} />
+          </Route>
+        </Routes>
+      </TooltipProvider>
     </ThemeProvider>
   );
 }
