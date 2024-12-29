@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import {
   Github,
@@ -9,6 +9,10 @@ import {
   User,
   MessageSquare,
   ChevronRight,
+  ArrowLeft,
+  ArrowRight,
+  Home,
+  FileText,
 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { useEffect } from "react";
@@ -23,12 +27,14 @@ import {
 const Layout = () => {
   const [activeSection, setActiveSection] = useState<string>("");
   const [isMenuCollapsed, setIsMenuCollapsed] = useState(true);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     console.log("[Layout] Component mounted");
 
     const handleScroll = () => {
-      const sections = ["projects", "about", "contact"];
+      const sections = ["projects", "about", "contact", "quote"];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -49,11 +55,14 @@ const Layout = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const location = useLocation();
   console.log(`[Layout] Current location: ${location.pathname}`);
   const isHomePage = location.pathname === "/";
 
   const scrollToSection = (sectionId: string) => {
+    if (!isHomePage) {
+      window.location.href = `/#${sectionId}`;
+      return;
+    }
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
@@ -78,42 +87,67 @@ const Layout = () => {
       id: "contact",
       label: "צור קשר",
       icon: <MessageSquare className="h-4 w-4" />,
+      variant: "ghost",
+    },
+    {
+      id: "quote",
+      label: "הצעת מחיר",
+      icon: <FileText className="h-4 w-4" />,
       variant: "default",
     },
+    {
+      id: "docs",
+      label: "מסמכים",
+      icon: <FileText className="h-4 w-4" />,
+      variant: "ghost",
+      onClick: () => navigate("/docs/faq"),
+    },
   ];
+
+  const handleBack = () => {
+    navigate(-1);
+  };
+
+  const handleForward = () => {
+    navigate(1);
+  };
 
   return (
     <div className="min-h-screen bg-background" dir="rtl">
       {/* Header Section */}
-      <header className="bg-background border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <nav className="flex flex-col items-center gap-4">
+      <header className="bg-background border-b border-border fixed top-0 left-0 right-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <nav className="flex items-center justify-between">
             <Link
               to="/"
               className="text-xl font-bold text-foreground hover:text-muted-foreground transition-colors"
             >
-              ליאור מדן
+              Byte
             </Link>
-            <div className="text-center max-w-2xl">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-                פיתוח אפליקציות web
+            <div
+              className="text-center cursor-pointer"
+              onClick={() => navigate("/")}
+            >
+              <h1 className="text-2xl font-bold text-foreground">
+                Byte | פיתוח אפליקציות web
               </h1>
-              <p className="text-lg sm:text-xl text-muted-foreground">
+              <p className="text-sm text-muted-foreground">
                 בניית אפליקציות מודרניות באמצעות React, Node.js וטכנולוגיות ענן
               </p>
             </div>
+            <div className="w-[100px]"></div> {/* Spacer for alignment */}
           </nav>
         </div>
       </header>
 
       {/* Side Menu */}
-      {isHomePage && (
-        <div
-          className={cn(
-            "fixed right-0 top-24 bg-card shadow-sm rounded-l-lg transition-all duration-300 ease-in-out hover:shadow-md border border-border",
-            isMenuCollapsed ? "w-12" : "w-40 p-4",
-          )}
-        >
+      <div
+        className={cn(
+          "fixed right-0 top-0 h-screen bg-card shadow-sm transition-all duration-300 ease-in-out hover:shadow-md border-l border-border z-40",
+          isMenuCollapsed ? "w-12" : "w-40 p-4",
+        )}
+      >
+        <div className="pt-20">
           <Button
             variant="ghost"
             size="icon"
@@ -129,41 +163,114 @@ const Layout = () => {
           </Button>
 
           <div className="flex flex-col space-y-4">
-            <TooltipProvider>
-              {menuItems.map((item) => (
-                <Tooltip key={item.id}>
+            {/* Navigation Controls */}
+            <div className="flex flex-col space-y-2">
+              <TooltipProvider>
+                <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
-                      variant={item.variant as "ghost" | "default"}
+                      variant="ghost"
+                      size="icon"
                       onClick={() => {
-                        scrollToSection(item.id);
-                        setIsMenuCollapsed(true);
+                        if (location.pathname !== "/") {
+                          navigate("/");
+                        }
+                        window.scrollTo({ top: 0, behavior: "smooth" });
                       }}
                       className={cn(
-                        "flex items-center gap-2 transition-all",
-                        item.variant === "ghost" &&
-                          "hover:bg-accent text-foreground",
-                        item.variant === "default" &&
-                          "hover:bg-primary/90 text-primary-foreground",
-                        activeSection === item.id &&
-                          (item.variant === "ghost"
-                            ? "bg-accent font-medium"
-                            : "bg-primary/90"),
+                        "flex items-center justify-center w-full",
                         isMenuCollapsed && "w-8 h-8 p-0",
                       )}
                     >
-                      {item.icon}
-                      {!isMenuCollapsed && item.label}
+                      <Home className="h-4 w-4" />
                     </Button>
                   </TooltipTrigger>
-                  {isMenuCollapsed && (
-                    <TooltipContent side="left" className="ml-2">
-                      {item.label}
-                    </TooltipContent>
-                  )}
+                  <TooltipContent side="left" className="ml-2">
+                    דף הבית
+                  </TooltipContent>
                 </Tooltip>
-              ))}
-            </TooltipProvider>
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={handleBack}
+                      className={cn(
+                        "flex items-center justify-center w-full mt-2",
+                        isMenuCollapsed && "w-8 h-8 p-0",
+                      )}
+                    >
+                      <ArrowRight className="h-4 w-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent side="left" className="ml-2">
+                    חזור
+                  </TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={handleForward}
+                      className={cn(
+                        "flex items-center justify-center w-full mt-2",
+                        isMenuCollapsed && "w-8 h-8 p-0",
+                      )}
+                    >
+                      <ArrowLeft className="h-4 w-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent side="left" className="ml-2">
+                    קדימה
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
+
+            <div className="border-t border-border pt-4">
+              <TooltipProvider>
+                {menuItems.map((item) => (
+                  <Tooltip key={item.id}>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant={item.variant as "ghost" | "default"}
+                        onClick={() => {
+                          if (item.onClick) {
+                            item.onClick();
+                          } else {
+                            scrollToSection(item.id);
+                          }
+                          setIsMenuCollapsed(true);
+                        }}
+                        className={cn(
+                          "flex items-center gap-2 transition-all w-full mb-2",
+                          item.variant === "ghost" &&
+                            "hover:bg-accent text-foreground",
+                          item.variant === "default" &&
+                            "hover:bg-primary/90 text-primary-foreground",
+                          activeSection === item.id &&
+                            (item.variant === "ghost"
+                              ? "bg-accent font-medium"
+                              : "bg-primary/90"),
+                          isMenuCollapsed && "w-8 h-8 p-0",
+                        )}
+                      >
+                        {item.icon}
+                        {!isMenuCollapsed && item.label}
+                      </Button>
+                    </TooltipTrigger>
+                    {isMenuCollapsed && (
+                      <TooltipContent side="left" className="ml-2">
+                        {item.label}
+                      </TooltipContent>
+                    )}
+                  </Tooltip>
+                ))}
+              </TooltipProvider>
+            </div>
 
             {/* Theme Toggle at the bottom */}
             <div className="mt-auto pt-4 border-t border-border">
@@ -190,10 +297,10 @@ const Layout = () => {
             </div>
           </div>
         </div>
-      )}
+      </div>
 
       {/* Main Content */}
-      <main>
+      <main className="pt-20 pr-12">
         <Outlet />
       </main>
 
@@ -226,7 +333,7 @@ const Layout = () => {
           </div>
           <div className="mt-8">
             <p className="text-center text-base text-muted-foreground">
-              © 2024 ליאור מדן. כל הזכויות שמורות.
+              © 2024 Byte. כל הזכויות שמורות.
             </p>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { PieChart, DollarSign, TrendingUp } from "lucide-react";
+import { DollarSign, LineChart, TrendingUp } from "lucide-react";
 import ProjectLayout from "./ProjectLayout";
 
 const BudgetManager = () => {
@@ -14,7 +14,7 @@ const BudgetManager = () => {
             "תיעוד פשוט ומהיר של כל התנועות הכספיות שלך, עם קטגוריות מותאמות אישית",
         },
         {
-          icon: <PieChart className="h-12 w-12" />,
+          icon: <LineChart className="h-12 w-12" />,
           title: "ניתוח תקציבי",
           description:
             "גרפים וניתוחים מתקדמים המציגים את דפוסי ההוצאה וההכנסה שלך",

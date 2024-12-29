@@ -5,6 +5,13 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { AnimatedText } from "./ui/animated-text";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "./ui/accordion";
 
 const projects = [
   {
@@ -38,16 +45,16 @@ const projects = [
     id: "4",
     title: "אתרי אירועים מיוחדים",
     description:
-      "פלטפורמה לבניית אתרים לאירועים מיוחדים כמו חתונות, בר מצוות ואירועים משפחתיים",
+      "פלטפורמה לבניית אתרים מרשימים לאירועים מיוחדים כמו חתונות, בר מצוות ואירועים משפחתיים",
     imageUrl: "https://images.unsplash.com/photo-1519741497674-611481863552",
-    tags: ["React", "Vite", "Tailwind", "shadcn/ui"],
+    tags: ["React", "Supabase", "Stripe", "shadcn/ui"],
     path: "/projects/event-websites",
   },
   {
     id: "5",
     title: "פורטפוליו אישי",
     description:
-      "אתר תדמית אישי להצגת פרויקטים ויצירת קשר עם לקוחות פוטנציאליים",
+      "אתר תדמית מודרני להצגת פרויקטים, יצירת קשר עם לקוחות פוטנציאליים וקבלת הצעות מחיר",
     imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
     tags: ["React", "Vite", "Tailwind", "shadcn/ui"],
     path: "/projects/portfolio",
@@ -56,9 +63,9 @@ const projects = [
     id: "6",
     title: "מערכת ניהול תוכן",
     description:
-      "פלטפורמה גמישה לניהול תוכן באתרים, המאפשרת עריכה קלה של תכנים, ניהול משתמשים ואנליטיקס מתקדמת",
+      "מערכת CMS מודרנית המאפשרת ניהול תוכן, משתמשים והרשאות בצורה פשוטה ואינטואיטיבית",
     imageUrl: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8",
-    tags: ["React", "Node.js", "Supabase", "Next.js"],
+    tags: ["React", "Supabase", "shadcn/ui", "Realtime"],
     path: "/projects/cms",
   },
 ];
@@ -84,26 +91,31 @@ const MainContent = () => {
         <h2 className="text-3xl font-bold text-center mb-12 text-foreground">
           פרויקטים נבחרים
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {projects.map((project) => (
-            <Card key={project.id} className="overflow-hidden bg-card">
-              <img
-                src={project.imageUrl}
-                alt={project.title}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
+            <Card
+              key={project.id}
+              className="overflow-hidden bg-card border-border group hover:border-primary/50 transition-colors"
+            >
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={project.imageUrl}
+                  alt={project.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="p-6 bg-card">
                 <h3 className="text-xl font-semibold mb-2 text-foreground">
                   {project.title}
                 </h3>
-                <p className="text-muted-foreground mb-4">
+                <p className="text-muted-foreground mb-4 line-clamp-2">
                   {project.description}
                 </p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2 py-1 bg-accent rounded-full text-sm text-accent-foreground"
+                      className="px-2 py-1 bg-accent/80 rounded-full text-sm text-accent-foreground"
                     >
                       {tag}
                     </span>
@@ -121,18 +133,66 @@ const MainContent = () => {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section className="py-16 bg-muted/50">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-8 text-foreground">
+            שאלות נפוצות
+          </h2>
+          <Accordion type="single" collapsible className="w-full text-xl">
+            <AccordionItem value="item-1">
+              <AccordionTrigger>איך מתחילים פרויקט חדש?</AccordionTrigger>
+              <AccordionContent>
+                <div className="text-xl">
+                  התהליך מתחיל בפגישת ייעוץ ראשונית בה נבין את הצרכים והמטרות
+                  שלך. לאחר מכן נגבש הצעת מחיר מפורטת ונתחיל בתכנון ואפיון
+                  הפרויקט.
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-2">
+              <AccordionTrigger>כמה זמן לוקח לבנות אפליקציה?</AccordionTrigger>
+              <AccordionContent>
+                <div className="text-xl">
+                  משך הפיתוח תלוי בגודל ומורכבות הפרויקט. פרויקט בסיסי יכול לקחת
+                  כחודש, בעוד פרויקטים מורכבים יותר עשויים להימשך מספר חודשים.
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-3">
+              <AccordionTrigger>
+                האם אתם מספקים תמיכה לאחר השקת האפליקציה?
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="text-xl">
+                  כן, אנחנו מציעים חבילות תמיכה ותחזוקה שונות הכוללות עדכונים,
+                  תיקון באגים, וסיוע טכני שוטף בהתאם לצרכי הלקוח.
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-4">
+              <AccordionTrigger>
+                האם האפליקציות שלכם מותאמות למובייל?
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="text-xl">
+                  כל האפליקציות שלנו מפותחות בגישת Mobile First ומותאמות באופן
+                  מלא למכשירים ניידים, טאבלטים ומחשבים שולחניים.
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+      </section>
+
       {/* About Section */}
-      <section id="about" className="py-16 bg-muted">
+      <section id="about" className="py-16 bg-muted/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center mb-8 text-foreground">
             אודות
           </h2>
           <div className="max-w-3xl mx-auto text-center">
-            <p className="text-lg text-muted-foreground">
-              אני מפתח Full Stack עם ניסיון של מעל 5 שנים בבניית אפליקציות ווב
-              מודרניות. מתמחה ב-React, Node.js וטכנולוגיות ענן, עם התמקדות
-              ביצירת פתרונות מדרגיים וידידותיים למשתמש עבור עסקים בכל הגדלים.
-            </p>
+            <AnimatedText text="Byte מתמחה בבניית אפליקציות web מודרניות ונוחות למשתמש, תוך שימוש בטכנולוגיות המתקדמות ביותר בתעשייה." />
           </div>
         </div>
       </section>
@@ -143,7 +203,7 @@ const MainContent = () => {
           <h2 className="text-3xl font-bold text-center mb-8 text-foreground">
             צור קשר
           </h2>
-          <form className="space-y-6 bg-card p-6 rounded-lg shadow-sm border border-border">
+          <form className="space-y-6 bg-card p-6 rounded-lg shadow-sm border border-border/50">
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div>
                 <Input placeholder="שם" className="bg-background" />
@@ -168,12 +228,12 @@ const MainContent = () => {
       </section>
 
       {/* Quote Request Section */}
-      <section id="quote" className="py-16 bg-muted">
+      <section id="quote" className="py-16 bg-muted/50">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center mb-8 text-foreground">
             בקש הצעת מחיר
           </h2>
-          <form className="space-y-6 bg-card p-6 rounded-lg shadow-sm border border-border">
+          <form className="space-y-6 bg-card p-6 rounded-lg shadow-sm border border-border/50">
             <div className="grid grid-cols-1 gap-6">
               <Input placeholder="שם הפרויקט" className="bg-background" />
               <Textarea
