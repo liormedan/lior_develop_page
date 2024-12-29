@@ -52,6 +52,15 @@ const projects = [
     tags: ["React", "Vite", "Tailwind", "shadcn/ui"],
     path: "/projects/portfolio",
   },
+  {
+    id: "6",
+    title: "מערכת ניהול תוכן",
+    description:
+      "פלטפורמה גמישה לניהול תוכן באתרים, המאפשרת עריכה קלה של תכנים, ניהול משתמשים ואנליטיקס מתקדמת",
+    imageUrl: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8",
+    tags: ["React", "Node.js", "Supabase", "Next.js"],
+    path: "/projects/cms",
+  },
 ];
 
 const MainContent = () => {
@@ -134,17 +143,24 @@ const MainContent = () => {
           <h2 className="text-3xl font-bold text-center mb-8 text-foreground">
             צור קשר
           </h2>
-          <form className="space-y-6">
+          <form className="space-y-6 bg-card p-6 rounded-lg shadow-sm border border-border">
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div>
-                <Input placeholder="שם" />
+                <Input placeholder="שם" className="bg-background" />
               </div>
               <div>
-                <Input type="email" placeholder="אימייל" />
+                <Input
+                  type="email"
+                  placeholder="אימייל"
+                  className="bg-background"
+                />
               </div>
             </div>
             <div>
-              <Textarea placeholder="ההודעה שלך" className="min-h-[150px]" />
+              <Textarea
+                placeholder="ההודעה שלך"
+                className="min-h-[150px] bg-background"
+              />
             </div>
             <Button className="w-full">שלח הודעה</Button>
           </form>
@@ -157,15 +173,19 @@ const MainContent = () => {
           <h2 className="text-3xl font-bold text-center mb-8 text-foreground">
             בקש הצעת מחיר
           </h2>
-          <form className="space-y-6">
+          <form className="space-y-6 bg-card p-6 rounded-lg shadow-sm border border-border">
             <div className="grid grid-cols-1 gap-6">
-              <Input placeholder="שם הפרויקט" />
+              <Input placeholder="שם הפרויקט" className="bg-background" />
               <Textarea
                 placeholder="תאר את דרישות הפרויקט והרעיונות שלך"
-                className="min-h-[150px]"
+                className="min-h-[150px] bg-background"
               />
-              <Input placeholder="טווח תקציב" />
-              <Input type="email" placeholder="אימייל ליצירת קשר" />
+              <Input placeholder="טווח תקציב" className="bg-background" />
+              <Input
+                type="email"
+                placeholder="אימייל ליצירת קשר"
+                className="bg-background"
+              />
             </div>
             <Button className="w-full">שלח בקשה</Button>
           </form>

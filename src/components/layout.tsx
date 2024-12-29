@@ -22,7 +22,7 @@ import {
 
 const Layout = () => {
   const [activeSection, setActiveSection] = useState<string>("");
-  const [isMenuCollapsed, setIsMenuCollapsed] = useState(false);
+  const [isMenuCollapsed, setIsMenuCollapsed] = useState(true);
 
   useEffect(() => {
     console.log("[Layout] Component mounted");
@@ -96,7 +96,7 @@ const Layout = () => {
             </Link>
             <div className="text-center max-w-2xl">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-                מפתח Full Stack
+                פיתוח אפליקציות web
               </h1>
               <p className="text-lg sm:text-xl text-muted-foreground">
                 בניית אפליקציות מודרניות באמצעות React, Node.js וטכנולוגיות ענן
@@ -135,7 +135,10 @@ const Layout = () => {
                   <TooltipTrigger asChild>
                     <Button
                       variant={item.variant as "ghost" | "default"}
-                      onClick={() => scrollToSection(item.id)}
+                      onClick={() => {
+                        scrollToSection(item.id);
+                        setIsMenuCollapsed(true);
+                      }}
                       className={cn(
                         "flex items-center gap-2 transition-all",
                         item.variant === "ghost" &&
