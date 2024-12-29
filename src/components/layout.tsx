@@ -3,9 +3,15 @@ import { Outlet, Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Github, Linkedin, Mail } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { useEffect } from "react";
 
 const Layout = () => {
+  useEffect(() => {
+    console.log("[Layout] Component mounted");
+  }, []);
+
   const location = useLocation();
+  console.log(`[Layout] Current location: ${location.pathname}`);
   const isHomePage = location.pathname === "/";
 
   const scrollToSection = (sectionId: string) => {

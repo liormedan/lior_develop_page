@@ -1,15 +1,15 @@
 import * as React from "react";
 
-interface ThemeProviderProps extends React.HTMLAttributes<HTMLDivElement> {
+type ThemeProviderProps = {
   children: React.ReactNode;
   defaultTheme?: string;
   storageKey?: string;
-}
+} & React.HTMLAttributes<HTMLDivElement>;
 
-interface ThemeProviderState {
+type ThemeProviderState = {
   theme: string;
   setTheme: (theme: string) => void;
-}
+};
 
 const initialState: ThemeProviderState = {
   theme: "system",
@@ -25,11 +25,15 @@ export function ThemeProvider({
   storageKey = "vite-ui-theme",
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = React.useState(
-    () => localStorage.getItem(storageKey) || defaultTheme,
-  );
+  const [theme, setTheme] = React.useState(() => {
+    console.log("[ThemeProvider] Initializing theme");
+    const savedTheme = localStorage.getItem(storageKey);
+    console.log("[ThemeProvider] Saved theme:", savedTheme);
+    return savedTheme || defaultTheme;
+  });
 
   React.useEffect(() => {
+    console.log(`[ThemeProvider] Theme changed to: ${theme}`);
     const root = window.document.documentElement;
     root.classList.remove("light", "dark");
 
@@ -38,6 +42,7 @@ export function ThemeProvider({
         .matches
         ? "dark"
         : "light";
+      console.log(`[ThemeProvider] System theme detected: ${systemTheme}`);
       root.classList.add(systemTheme);
       return;
     }
@@ -48,6 +53,7 @@ export function ThemeProvider({
   const value = {
     theme,
     setTheme: (theme: string) => {
+      console.log(`[ThemeProvider] Setting new theme: ${theme}`);
       localStorage.setItem(storageKey, theme);
       setTheme(theme);
     },

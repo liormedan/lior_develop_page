@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const projects = [
   {
@@ -55,6 +56,14 @@ const projects = [
 
 const MainContent = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log("[MainContent] Component mounted");
+    console.log("[MainContent] Projects data:", projects);
+    return () => {
+      console.log("[MainContent] Component unmounted");
+    };
+  }, []);
 
   return (
     <div className="w-full bg-white" dir="rtl">
