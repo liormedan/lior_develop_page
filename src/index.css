@@ -74,3 +74,38 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Accessibility Styles */
+.high-contrast {
+  --background: 0 0% 100%;
+  --foreground: 0 0% 0%;
+  --muted: 0 0% 90%;
+  --muted-foreground: 0 0% 0%;
+  --border: 0 0% 0%;
+  filter: contrast(150%);
+}
+
+.bigger-cursor {
+  cursor:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 3 7.07 16.97 2.51-7.39 7.39-2.51L3 3z'/%3E%3Cpath d='m13 13 6 6'/%3E%3C/svg%3E")
+      16 16,
+    auto;
+}
+
+.dyslexic-font {
+  font-family:
+    "OpenDyslexic",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+}
+
+@font-face {
+  font-family: "OpenDyslexic";
+  src: url("https://cdn.jsdelivr.net/npm/opendyslexic@1.0.3/dist/regular/OpenDyslexic-Regular.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}

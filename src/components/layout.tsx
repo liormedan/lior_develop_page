@@ -16,6 +16,7 @@ import {
   HelpCircle,
 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { AccessibilityMenu } from "./ui/accessibility-menu";
 import { useEffect } from "react";
 import { cn } from "@/lib/utils";
 import {
@@ -339,6 +340,9 @@ const Layout = () => {
           </div>
         </div>
       </footer>
+
+      {/* Accessibility Menu */}
+      <AccessibilityMenu />
     </div>
   );
 };
