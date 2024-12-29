@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { cn } from "@/lib/utils";
 
 interface AnimatedTextProps {
@@ -6,29 +6,18 @@ interface AnimatedTextProps {
   className?: string;
 }
 
-export const AnimatedText = ({ text, className }: AnimatedTextProps) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const words = text.split(" ");
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
-
+export const AnimatedText: React.FC<AnimatedTextProps> = ({
+  text,
+  className,
+}) => {
   return (
-    <div className={cn("text-lg text-muted-foreground", className)}>
-      {words.map((word, index) => (
-        <span
-          key={index}
-          className={cn(
-            "inline-block transition-all duration-700 opacity-0 translate-y-2",
-            isVisible && "opacity-100 translate-y-0",
-            word === "Byte" && "text-primary font-bold",
-          )}
-          style={{ transitionDelay: `${index * 100}ms` }}
-        >
-          {word}{" "}
-        </span>
-      ))}
-    </div>
+    <span
+      className={cn(
+        "bg-gradient-to-r from-primary to-primary/50 bg-clip-text text-transparent animate-gradient",
+        className,
+      )}
+    >
+      {text}
+    </span>
   );
 };

@@ -5,7 +5,6 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { AnimatedText } from "./ui/animated-text";
 import {
   Accordion,
   AccordionContent,
@@ -88,8 +87,8 @@ const MainContent = () => {
         id="projects"
         className="pt-24 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-20"
       >
-        <h2 className="text-3xl font-bold text-center mb-12 text-foreground">
-          פרויקטים נבחרים
+        <h2 className="text-3xl font-bold text-center mb-4 text-foreground">
+          פרויקטים שבנינו
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {projects.map((project) => (

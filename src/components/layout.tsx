@@ -8,7 +8,6 @@ import {
   Briefcase,
   MessageCircle,
   ChevronRight,
-  ArrowLeft,
   ArrowRight,
   Home,
   ScrollText,
@@ -110,10 +109,6 @@ const Layout = () => {
     navigate(-1);
   };
 
-  const handleForward = () => {
-    navigate(1);
-  };
-
   return (
     <div className="min-h-screen bg-background" dir="rtl">
       {/* Header Section */}
@@ -208,25 +203,6 @@ const Layout = () => {
                   </TooltipTrigger>
                   <TooltipContent side="left" className="ml-2">
                     חזור
-                  </TooltipContent>
-                </Tooltip>
-
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={handleForward}
-                      className={cn(
-                        "flex items-center justify-center w-full mt-2",
-                        isMenuCollapsed && "w-8 h-8 p-0",
-                      )}
-                    >
-                      <ArrowLeft className="h-4 w-4" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent side="left" className="ml-2">
-                    קדימה
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
