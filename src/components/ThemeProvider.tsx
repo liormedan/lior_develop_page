@@ -1,30 +1,17 @@
 import * as React from "react";
 
-interface ThemeProviderProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
-  defaultTheme?: string;
-  storageKey?: string;
-}
-
-interface ThemeProviderState {
-  theme: string;
-  setTheme: (theme: string) => void;
-}
-
-const initialState: ThemeProviderState = {
+const ThemeProviderContext = React.createContext({
   theme: "system",
-  setTheme: () => null,
-};
+  setTheme: (theme) => {},
+});
 
-const ThemeProviderContext =
-  React.createContext<ThemeProviderState>(initialState);
+export function ThemeProvider(props) {
+  const {
+    children,
+    defaultTheme = "system",
+    storageKey = "vite-ui-theme",
+  } = props;
 
-export function ThemeProvider({
-  children,
-  defaultTheme = "system",
-  storageKey = "vite-ui-theme",
-  ...props
-}: ThemeProviderProps) {
   const [theme, setTheme] = React.useState(
     () => localStorage.getItem(storageKey) || defaultTheme,
   );
@@ -47,14 +34,14 @@ export function ThemeProvider({
 
   const value = {
     theme,
-    setTheme: (theme: string) => {
+    setTheme: (theme) => {
       localStorage.setItem(storageKey, theme);
       setTheme(theme);
     },
   };
 
   return (
-    <ThemeProviderContext.Provider {...props} value={value}>
+    <ThemeProviderContext.Provider value={value}>
       {children}
     </ThemeProviderContext.Provider>
   );

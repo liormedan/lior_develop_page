@@ -7,7 +7,7 @@ import FamilyWebsites from "./components/projects/FamilyWebsites";
 import EventWebsites from "./components/projects/EventWebsites";
 import Portfolio from "./components/projects/Portfolio";
 import ScrollToTop from "./components/ScrollToTop";
-import { ThemeProvider } from "./components/ui/theme-provider";
+import { ThemeProvider } from "@/components/ui/theme-provider";
 
 function App() {
   return (
